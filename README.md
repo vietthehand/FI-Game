@@ -12,9 +12,11 @@ Nx is designed to help you create and build enterprise grade Angular application
 
 ## Quick Start
 
-run
+```
   npm install
   ng serve fi-game
+```
+
 go to localhost:4200 in web browser
 
 
