@@ -7,5 +7,12 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "fi-game": {
+      "tags": []
+    },
+    "fi-game-e2e": {
+      "tags": []
+    }
+  }
 }
