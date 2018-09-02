@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { GameModule } from './game/game.module';
 import { GameComponent } from './game/game.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +14,8 @@ import { GameComponent } from './game/game.component';
     RouterModule.forRoot([{ path: '', component: GameComponent }], {
       initialNavigation: 'enabled'
     }),
-    GameModule
+    GameModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

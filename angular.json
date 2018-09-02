@@ -27,6 +27,9 @@
               "apps/fi-game/src/assets"
             ],
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "apps/fi-game/src/styles.scss"
             ],
             "scripts": []
@@ -76,6 +79,9 @@
             "tsConfig": "apps/fi-game/tsconfig.spec.json",
             "karmaConfig": "apps/fi-game/karma.conf.js",
             "styles": [
+              {
+                "input": "node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
+              },
               "apps/fi-game/src/styles.scss"
             ],
             "scripts": [],
