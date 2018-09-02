@@ -2,19 +2,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { NxModule } from '@nrwl/nx';
 import { RouterModule } from '@angular/router';
+import { GameModule } from './game/game.module';
+import { GameComponent } from './game/game.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    NxModule.forRoot(),
-    RouterModule.forRoot([], {initialNavigation: 'enabled'})
+    RouterModule.forRoot([{ path: '', component: GameComponent }], {
+      initialNavigation: 'enabled'
+    }),
+    GameModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
