@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'fi-game-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.css']
+  styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent {
   isHandset$: Observable<boolean> = this.breakpointObserver
