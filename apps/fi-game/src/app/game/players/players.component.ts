@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayerQuery } from './state/player.query';
 
 @Component({
   selector: 'fi-players',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./players.component.scss']
 })
 export class PlayersComponent implements OnInit {
-
-  constructor() { }
+  player$;
+  constructor(private playerQuery: PlayerQuery) {}
 
   ngOnInit() {
+    this.player$ = this.playerQuery.player$;
   }
-
 }

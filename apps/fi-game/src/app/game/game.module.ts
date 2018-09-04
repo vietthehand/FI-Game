@@ -14,6 +14,7 @@ import { CharacterComponent } from './characters/character/character.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyMaterialModule } from '@ngx-formly/material';
+import { InvestmentComponent } from './investments/investment/investment.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { FormlyMaterialModule } from '@ngx-formly/material';
     MainNavComponent,
     PlayersComponent,
     CharactersComponent,
-    CharacterComponent
+    CharacterComponent,
+    InvestmentComponent
   ]
 })
 export class GameModule {}
