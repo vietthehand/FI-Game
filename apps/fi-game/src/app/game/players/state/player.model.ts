@@ -8,7 +8,7 @@ export interface Player {
 
 export function CreatePlayer() {
   return {
-    id: null,
+    id: 'test',
     job: '',
     money: 0
   };
