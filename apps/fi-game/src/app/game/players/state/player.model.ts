@@ -1,18 +1,26 @@
-import { ID } from '@datorama/akita';
 import * as moment from 'moment';
 
 export interface Player {
-  id: ID;
   job: string;
   money: number;
   startDate: moment.Moment;
+  currentTime: moment.Moment;
+  budget: BudgetItem[];
+}
+
+export interface BudgetItem {
+  cost: number;
+  description: string;
+  date: moment.Moment;
 }
 
 export function CreatePlayer() {
+  const now = moment();
   return {
-    id: 'test',
     job: '',
     money: 0,
-    startDate: moment()
+    startDate: now,
+    currentTime: now,
+    budget: []
   };
 }

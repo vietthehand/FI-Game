@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 import { PlayerQuery } from './state/player.query';
 import { PlayerService } from './state/player.service';
@@ -20,5 +21,25 @@ export class PlayersComponent implements OnInit {
 
   updateMoney() {
     this.playerService.addMoney(10);
+  }
+
+  reset() {
+    this.playerService.reset();
+  }
+
+  buyCoffee() {
+    this.playerService.addToBudget({
+      description: 'Coffee',
+      cost: -5,
+      date: moment()
+    });
+  }
+
+  goToJob() {
+    this.playerService.addToBudget({
+      description: 'Job',
+      cost: 150,
+      date: moment()
+    });
   }
 }

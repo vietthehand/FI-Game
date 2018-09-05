@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
 
-import { CreatePlayer } from './player.model';
+import { BudgetItem, CreatePlayer } from './player.model';
 import { PlayerQuery } from './player.query';
 import { PlayerStore } from './player.store';
 
@@ -24,5 +24,13 @@ export class PlayerService {
     money$.subscribe(money =>
       this.playerStore.update({ money: money + amount })
     );
+  }
+
+  addToBudget(item: BudgetItem) {
+    const budget$ = this.playerQuery.budget$.pipe(take(1));
+
+    budget$.subscribe(budget => {
+      this.playerStore.update({ budget: [...budget, item] });
+    });
   }
 }

@@ -10,6 +10,7 @@ import { PlayerStore } from './player.store';
 export class PlayerQuery extends Query<Player> {
   player$ = this.select(player => player);
   money$ = this.select(player => player.money);
+  budget$ = this.select(player => player.budget);
 
   constructor(protected store: PlayerStore) {
     super(store);
