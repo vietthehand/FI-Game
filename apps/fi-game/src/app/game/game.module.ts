@@ -1,20 +1,19 @@
-import { NgModule } from '@angular/core';
+import { LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormlyModule } from '@ngx-formly/core';
 
+import { CharacterComponent } from './characters/character/character.component';
+import { CharactersComponent } from './characters/characters.component';
 import { GameRoutingModule } from './game-routing.module';
 import { GameComponent } from './game.component';
+import { InvestmentComponent } from './investments/investment/investment.component';
 import { InvestmentsComponent } from './investments/investments.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatComponentsModule } from './mat-components/mat-components.module';
 import { PlayersComponent } from './players/players.component';
-import { CharactersComponent } from './characters/characters.component';
-import { CharacterComponent } from './characters/character/character.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
-import { InvestmentComponent } from './investments/investment/investment.component';
 
 @NgModule({
   imports: [

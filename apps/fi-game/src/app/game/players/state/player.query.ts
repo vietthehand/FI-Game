@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Query } from '@datorama/akita';
+
 import { Player } from './player.model';
 import { PlayerStore } from './player.store';
 
@@ -8,6 +9,7 @@ import { PlayerStore } from './player.store';
 })
 export class PlayerQuery extends Query<Player> {
   player$ = this.select(player => player);
+  money$ = this.select(player => player.money);
 
   constructor(protected store: PlayerStore) {
     super(store);

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { PlayerQuery } from './state/player.query';
 import { PlayerService } from './state/player.service';
 
