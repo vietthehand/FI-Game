@@ -11,6 +11,10 @@ export class PlayerQuery extends Query<Player> {
   player$ = this.select(player => player);
   money$ = this.select(player => player.money);
   budget$ = this.select(player => player.budget);
+  expenses$ = this.select(player =>
+    player.budget.filter(item => item.cost < 0)
+  );
+  incomes$ = this.select(player => player.budget.filter(item => item.cost > 0));
 
   constructor(protected store: PlayerStore) {
     super(store);

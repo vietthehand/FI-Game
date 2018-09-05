@@ -11,6 +11,8 @@ import { PlayerService } from './state/player.service';
 })
 export class PlayersComponent implements OnInit {
   player$ = this.playerQuery.player$;
+  incomes$ = this.playerQuery.incomes$;
+  expenses$ = this.playerQuery.expenses$;
 
   constructor(
     private playerQuery: PlayerQuery,
@@ -33,7 +35,7 @@ export class PlayersComponent implements OnInit {
       cost: -5,
       date: moment()
     };
-    
+
     this.playerService.addToBudget(coffee);
     this.playerService.addMoney(coffee.cost);
   }

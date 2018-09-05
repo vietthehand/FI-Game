@@ -1,6 +1,18 @@
-Player Summary
+<h2>
+  Player Summary
+</h2>
 <p>
   {{player$ | async | json}}
+</p>
+
+<h2>Incomes</h2>
+<p>
+  {{incomes$ | async | json}}
+</p>
+
+<h2>Expenses</h2>
+<p>
+  {{expenses$ | async | json}}
 </p>
 
 <button mat-button (click)="updateMoney()">Add Money</button>
