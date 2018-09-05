@@ -13,6 +13,7 @@ export class PlayersComponent implements OnInit {
   player$ = this.playerQuery.player$;
   incomes$ = this.playerQuery.incomes$;
   expenses$ = this.playerQuery.expenses$;
+  displayedColumns: string[] = ['description', 'cost', 'date'];
 
   constructor(
     private playerQuery: PlayerQuery,
