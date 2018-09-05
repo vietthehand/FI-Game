@@ -28,18 +28,24 @@ export class PlayersComponent implements OnInit {
   }
 
   buyCoffee() {
-    this.playerService.addToBudget({
+    const coffee = {
       description: 'Coffee',
       cost: -5,
       date: moment()
-    });
+    };
+    
+    this.playerService.addToBudget(coffee);
+    this.playerService.addMoney(coffee.cost);
   }
 
   goToJob() {
-    this.playerService.addToBudget({
+    const job = {
       description: 'Job',
       cost: 150,
       date: moment()
-    });
+    };
+
+    this.playerService.addToBudget(job);
+    this.playerService.addMoney(job.cost);
   }
 }
