@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { take } from 'rxjs/operators';
 
+import { InvestmentsQuery } from '../investments/state/investments.query';
+import { InvestmentsService } from '../investments/state/investments.service';
 import { PlayerQuery } from './state/player.query';
 import { PlayerService } from './state/player.service';
 
@@ -11,16 +14,46 @@ import { PlayerService } from './state/player.service';
 })
 export class PlayersComponent implements OnInit {
   player$ = this.playerQuery.player$;
+  money$ = this.playerQuery.money$;
   incomes$ = this.playerQuery.incomes$;
   expenses$ = this.playerQuery.expenses$;
+  currentDate$ = this.playerQuery.currentDate$;
   displayedColumns: string[] = ['description', 'cost', 'date'];
+  investments$ = this.investmentsQuery.selectAll();
+  netWorth$ = this.playerQuery.netWorth$;
 
   constructor(
     private playerQuery: PlayerQuery,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private investmentService: InvestmentsService,
+    private investmentsQuery: InvestmentsQuery
   ) {}
 
   ngOnInit() {}
+
+  buyInvestment() {
+    this.investmentService.buyInvestment(
+      {
+        id: 1,
+        amount: 0,
+        name: 'spy',
+        price: 10
+      },
+      1
+    );
+  }
+
+  sellInvestment() {
+    this.investmentService.sellInvestment(
+      {
+        id: 1,
+        amount: 0,
+        name: 'spy',
+        price: 10
+      },
+      1
+    );
+  }
 
   updateMoney() {
     this.playerService.addMoney(10);
@@ -31,14 +64,16 @@ export class PlayersComponent implements OnInit {
   }
 
   buyCoffee() {
-    const coffee = {
-      description: 'Coffee',
-      cost: -5,
-      date: moment()
-    };
+    this.currentDate$.pipe(take(1)).subscribe(date => {
+      const coffee = {
+        description: 'Coffee',
+        cost: -5,
+        date: date
+      };
 
-    this.playerService.addToBudget(coffee);
-    this.playerService.addMoney(coffee.cost);
+      this.playerService.addToBudget(coffee);
+      this.playerService.addMoney(coffee.cost);
+    });
   }
 
   goToJob() {

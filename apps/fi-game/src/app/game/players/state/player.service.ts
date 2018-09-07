@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
 
+import { InvestmentsStore } from '../../investments/state/investments.store';
 import { BudgetItem, CreatePlayer } from './player.model';
 import { PlayerQuery } from './player.query';
 import { PlayerStore } from './player.store';
@@ -11,11 +12,13 @@ import { PlayerStore } from './player.store';
 export class PlayerService {
   constructor(
     private playerStore: PlayerStore,
-    private playerQuery: PlayerQuery
+    private playerQuery: PlayerQuery,
+    private investmentStore: InvestmentsStore
   ) {}
 
   reset() {
     this.playerStore.update(CreatePlayer());
+    this.investmentStore.set([]);
   }
 
   addMoney(amount: number) {

@@ -15,7 +15,11 @@ export interface BudgetItem {
 }
 
 export function CreatePlayer() {
-  const now = moment();
+  const now = moment().startOf('day');
+  // moment
+  //   .utc('2013-10-29T00:00:00+00:00')
+  //   .startOf('day')
+  //   .format('LL')
   return {
     job: '',
     money: 0,

@@ -3,15 +3,21 @@
   <h2>
     Player Summary
   </h2>
-  <p>
+  <p>Cash: {{money$ | async | currency}} </p>
+  <p>Net Worth: {{netWorth$ | async | currency}} </p>
+  <!-- <p>
     {{player$ | async | json}}
-  </p>
+  </p> -->
+
+  {{investments$ | async | json}}
 
   <div fxLayout="row" fxLayoutGap="1em">
     <button mat-raised-button color="primary" (click)="updateMoney()">Add Money</button>
     <button mat-raised-button color="primary" (click)="reset()">Reset Player</button>
     <button mat-raised-button color="primary" (click)="buyCoffee()">Buy Coffee</button>
     <button mat-raised-button color="primary" (click)="goToJob()">Go to Job</button>
+    <button mat-raised-button color="primary" (click)="buyInvestment()">Buy Investment</button>
+    <button mat-raised-button color="primary" (click)="sellInvestment()">Sell Investment</button>
   </div>
 
   <h2>Incomes</h2>
