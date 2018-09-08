@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import { InvestmentsQuery } from '../investments/state/investments.query';
@@ -29,7 +30,9 @@ export class PlayersComponent implements OnInit {
     private investmentsQuery: InvestmentsQuery
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    interval(3000).subscribe(() => this.updateInvestmentPrice());
+  }
 
   buyInvestment() {
     this.investmentService.buyInvestment(
@@ -52,6 +55,18 @@ export class PlayersComponent implements OnInit {
         price: 10
       },
       1
+    );
+  }
+
+  updateInvestmentPrice() {
+    this.investmentService.updateInvestmentPrice(
+      {
+        id: 1,
+        amount: 0,
+        name: 'spy',
+        price: 10
+      },
+      Math.floor(Math.random() * 20)
     );
   }
 

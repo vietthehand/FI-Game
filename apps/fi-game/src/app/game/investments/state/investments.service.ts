@@ -52,14 +52,26 @@ export class InvestmentsService {
       .pipe(take(1))
       .subscribe(([money, inv]) => {
         if (inv && inv.amount >= amount) {
-          this.investmentsStore.createOrReplace(investment.id, {
-            ...investment,
+          this.investmentsStore.createOrReplace(inv.id, {
+            ...inv,
             amount: inv.amount - amount
           });
 
           const sellValue = amount * inv.price;
           this.playerStore.update({ money: money + sellValue });
         }
+      });
+  }
+
+  updateInvestmentPrice(investment: Investment, price: number) {
+    this.investmentsQuery
+      .selectEntity(investment.id)
+      .pipe(take(1))
+      .subscribe(inv => {
+        this.investmentsStore.createOrReplace(inv.id, {
+          ...inv,
+          price: price
+        });
       });
   }
 
