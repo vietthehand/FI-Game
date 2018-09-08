@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 
 import { PlayerQuery } from '../../players/state/player.query';
 import { PlayerStore } from '../../players/state/player.store';
@@ -66,8 +66,14 @@ export class InvestmentsService {
   updateInvestmentPrice(investment: Investment, price: number) {
     this.investmentsQuery
       .selectEntity(investment.id)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        filter(val => val !== undefined)
+      )
       .subscribe(inv => {
+        // if (!inv) {
+        //   inv = investment;
+        // }
         this.investmentsStore.createOrReplace(inv.id, {
           ...inv,
           price: price

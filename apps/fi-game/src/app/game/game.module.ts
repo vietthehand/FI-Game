@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
+import { ChartsModule } from 'ng2-charts';
 
 import { CharacterComponent } from './characters/character/character.component';
 import { CharactersComponent } from './characters/characters.component';
@@ -23,7 +24,8 @@ import { PlayersComponent } from './players/players.component';
     MatComponentsModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormlyModule.forChild()
+    FormlyModule.forChild(),
+    ChartsModule
   ],
   declarations: [
     GameComponent,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { filter, scan, take } from 'rxjs/operators';
 
 import { InvestmentsQuery } from '../investments/state/investments.query';
 import { InvestmentsService } from '../investments/state/investments.service';
@@ -14,6 +14,13 @@ import { PlayerService } from './state/player.service';
   styleUrls: ['./players.component.scss']
 })
 export class PlayersComponent implements OnInit {
+  constructor(
+    private playerQuery: PlayerQuery,
+    private playerService: PlayerService,
+    private investmentService: InvestmentsService,
+    private investmentsQuery: InvestmentsQuery
+  ) {}
+
   player$ = this.playerQuery.player$;
   money$ = this.playerQuery.money$;
   incomes$ = this.playerQuery.incomes$;
@@ -23,15 +30,60 @@ export class PlayersComponent implements OnInit {
   investments$ = this.investmentsQuery.selectAll();
   netWorth$ = this.playerQuery.netWorth$;
 
-  constructor(
-    private playerQuery: PlayerQuery,
-    private playerService: PlayerService,
-    private investmentService: InvestmentsService,
-    private investmentsQuery: InvestmentsQuery
-  ) {}
+  numberOfYears = 0;
+
+  // lineChart
+  public lineChartData: Array<any> = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' }
+  ];
+  public lineChartLabels: Array<any> = [
+    '20',
+    '19',
+    '18',
+    '17',
+    '16',
+    '15',
+    '14',
+    '13',
+    '12',
+    '11',
+    '10',
+    '9',
+    '8',
+    '7',
+    '6',
+    '5',
+    '4',
+    '3',
+    '2',
+    '1'
+  ];
+  public lineChartOptions: any = {
+    responsive: true
+  };
+
+  public lineChartType: string = 'line';
 
   ngOnInit() {
-    interval(3000).subscribe(() => this.updateInvestmentPrice());
+    interval(500).subscribe(() => {
+      this.updateInvestmentPrice();
+      this.numberOfYears++;
+    });
+
+    // this.netWorth$.pipe(bufferCount(20, 1)).subscribe(val => {
+    //   this.lineChartData = [{ data: val, label: 'netWorth' }];
+    // });
+
+    this.netWorth$
+      .pipe(
+        scan((acc, val) => {
+          acc.push(val);
+          return acc.slice(-20);
+        }, [])
+      )
+      .subscribe(val => {
+        this.lineChartData = [{ data: val, label: 'netWorth' }];
+      });
   }
 
   buyInvestment() {
@@ -59,15 +111,25 @@ export class PlayersComponent implements OnInit {
   }
 
   updateInvestmentPrice() {
-    this.investmentService.updateInvestmentPrice(
-      {
-        id: 1,
-        amount: 0,
-        name: 'spy',
-        price: 10
-      },
-      Math.floor(Math.random() * 20)
-    );
+    this.investmentsQuery
+      .selectEntity(1)
+      .pipe(
+        take(1),
+        filter(val => val !== undefined)
+      )
+      .subscribe(investment => {
+        const newPrice =
+          investment.price * (1 + this.randomIntFromInterval(-10, 20) / 100);
+        this.investmentService.updateInvestmentPrice(
+          {
+            id: 1,
+            amount: 0,
+            name: 'spy',
+            price: 10
+          },
+          newPrice
+        );
+      });
   }
 
   updateMoney() {
@@ -100,5 +162,9 @@ export class PlayersComponent implements OnInit {
 
     this.playerService.addToBudget(job);
     this.playerService.addMoney(job.cost);
+  }
+
+  private randomIntFromInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
 }
