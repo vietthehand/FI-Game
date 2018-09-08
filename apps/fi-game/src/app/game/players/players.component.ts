@@ -119,7 +119,7 @@ export class PlayersComponent implements OnInit {
       )
       .subscribe(investment => {
         const newPrice =
-          investment.price * (1 + this.randomIntFromInterval(-10, 20) / 100);
+          investment.price * (1 + this.randomIntFromInterval(-10, 15) / 100);
         this.investmentService.updateInvestmentPrice(
           {
             id: 1,
