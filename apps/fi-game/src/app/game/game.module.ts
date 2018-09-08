@@ -8,6 +8,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { CharacterComponent } from './characters/character/character.component';
 import { CharactersComponent } from './characters/characters.component';
+import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { GameRoutingModule } from './game-routing.module';
 import { GameComponent } from './game.component';
 import { InvestmentComponent } from './investments/investment/investment.component';
@@ -34,7 +35,9 @@ import { PlayersComponent } from './players/players.component';
     PlayersComponent,
     CharactersComponent,
     CharacterComponent,
-    InvestmentComponent
-  ]
+    InvestmentComponent,
+    EventDialogComponent
+  ],
+  entryComponents: [EventDialogComponent]
 })
 export class GameModule {}

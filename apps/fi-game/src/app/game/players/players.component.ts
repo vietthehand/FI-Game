@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { interval } from 'rxjs';
 import { filter, scan, take } from 'rxjs/operators';
 
+import { EventDialogComponent } from '../event-dialog/event-dialog.component';
 import { InvestmentsQuery } from '../investments/state/investments.query';
 import { InvestmentsService } from '../investments/state/investments.service';
 import { PlayerQuery } from './state/player.query';
@@ -18,7 +20,8 @@ export class PlayersComponent implements OnInit {
     private playerQuery: PlayerQuery,
     private playerService: PlayerService,
     private investmentService: InvestmentsService,
-    private investmentsQuery: InvestmentsQuery
+    private investmentsQuery: InvestmentsQuery,
+    public dialog: MatDialog
   ) {}
 
   player$ = this.playerQuery.player$;
@@ -64,8 +67,13 @@ export class PlayersComponent implements OnInit {
 
   public lineChartType: string = 'line';
 
+  lunchEvent: Event = {
+    description: 'Friends invited you to coffee',
+    question: 'Do you want to go?'
+  };
+
   ngOnInit() {
-    interval(500).subscribe(() => {
+    interval(1000).subscribe(() => {
       this.updateInvestmentPrice();
       this.numberOfYears++;
     });
@@ -119,7 +127,7 @@ export class PlayersComponent implements OnInit {
       )
       .subscribe(investment => {
         const newPrice =
-          investment.price * (1 + this.randomIntFromInterval(-10, 15) / 100);
+          investment.price * (1 + this.randomIntFromInterval(-10, 13) / 100);
         this.investmentService.updateInvestmentPrice(
           {
             id: 1,
@@ -167,4 +175,27 @@ export class PlayersComponent implements OnInit {
   private randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+  startEvent(event: Event) {
+    this.dialog
+      .open(EventDialogComponent, {
+        data: {
+          description: event.description,
+          question: event.question
+        }
+      })
+      .afterClosed()
+      .subscribe(data => {
+        if (data) {
+          this.buyCoffee();
+        } else {
+          console.log('denied event');
+        }
+      });
+  }
+}
+
+export interface Event {
+  description: string;
+  question: string;
 }
