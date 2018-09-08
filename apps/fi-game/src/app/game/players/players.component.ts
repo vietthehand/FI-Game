@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { interval } from 'rxjs';
-import { filter, scan, take } from 'rxjs/operators';
+import { filter, map, scan, take } from 'rxjs/operators';
 
 import { EventDialogComponent } from '../event-dialog/event-dialog.component';
 import { InvestmentsQuery } from '../investments/state/investments.query';
@@ -65,7 +65,7 @@ export class PlayersComponent implements OnInit {
     responsive: true
   };
 
-  public lineChartType: string = 'line';
+  public lineChartType = 'line';
 
   lunchEvent: Event = {
     description: 'Friends invited you to coffee',
@@ -84,6 +84,7 @@ export class PlayersComponent implements OnInit {
 
     this.netWorth$
       .pipe(
+        map(val => [val]),
         scan((acc, val) => {
           acc.push(val);
           return acc.slice(-20);
